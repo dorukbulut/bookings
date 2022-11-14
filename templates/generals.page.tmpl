@@ -73,7 +73,32 @@
         `;
         attention.custom({
             title: 'Choose your dates',
+            willOpen: () => {
+                const elem = document.getElementById("reservation-dates-modal");
+                const rp = new DateRangePicker(elem, {
+                    format: 'yyyy-mm-dd',
+                    showOnFocus: true,
+                })
+            },
+            didOpen: () => {
+                document.getElementById("start").removeAttribute("disabled");
+                document.getElementById("end").removeAttribute("disabled");
+            },
             msg: html,
+            callback : function (result) {
+                console.log("called");
+
+                let form =  document.getElementById("check-availability-form");
+                let formData = new FormData(form);
+                formData.append("csrf_token", "{{.CSRFToken}}");
+
+                fetch("/search-availability-json", {
+                    method: "post",
+                    body : formData
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+            }
         });
     })
 </script>
