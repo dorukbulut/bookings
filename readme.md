@@ -1,7 +1,7 @@
 # Bookings and Reservations
 
 
-Bed and Breakfast Web App Written with GoLang.
+Bed and Breakfast Web App Written in GoLang.
 
 
 
